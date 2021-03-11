@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Movie order page</title>
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Movie Order Page</h1>
+
+<div sec:authorize="isAuthenticated()">
+	Welcome <span sec:authentication="name"> !</span>
+	<br>
+		Roles: <span sec:authentication="principal.authorities"></span>
+	<br>
+	<br>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="logout"/>
+		</form>
+	</div>
+</div>
+<br>
+<div>
+	<h2>The purchase information</h2>
+	<h3>Movie Name - Room: <span th:text="${order.movieName}"></span></h3>
+	<h3>Movie Date: <span th:text="${order.movieDate}"></span></h3>
+	<h3>Movie Time: <span th:text="${order.movieTime}"></span></h3>
+	<h3>Seat: <span th:text="${order.movieSeat}"></span></h3>
+	<br>
+	<h3>Come back to Main Page <a th:href="@{/}">here</a></h3>
+</div>
+</body>
+</html>

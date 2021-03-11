@@ -1,0 +1,10 @@
+Movie Ticket
+-------------------
+Movie Name:
+At home Alone
+Date
+2020-12-22
+Time
+12:00
+Seat
+2

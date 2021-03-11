@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Movie booking page</title>
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Movie Booking Page</h1>
+
+<div sec:authorize="isAuthenticated()">
+	Welcome <span sec:authentication="name"> !</span>
+	<br>
+		Roles: <span sec:authentication="principal.authorities"></span>
+	<br>
+	<br>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="logout"/>
+		</form>
+	</div>
+</div>
+<br>
+<div>
+	<form th:action="@{/booked}" th:object="${order}" method="post">
+	<table>
+		<tr><td></td><td>The price is <span th:text="${session.price}"></span>
+		<br>(The price will be 15 if you are not a member.)
+					</td></tr>
+		<tr>
+			<td><label>Choose the movie:</label></td>
+			<td><select th:field="*{movieName}">
+				<option value="">-- Choose a movie title and room --</option>
+				<option value="At home Alone">At home Alone - Room A</option>
+				<option value="Sans famille">Sans famille - Room B</option>
+				<option value="The Lion King">The Lion King - Room C</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td><label>Choose date:</label></td>
+			<td><input type="date" min="2010-01-01" max="2020-12-31" th:field="*{movieDate}"/></td>
+		</tr>
+		<tr>
+			<td><label>Choose time:</label></td>
+			<td><select th:field="*{movieTime}">
+			<option value="">-- Choose a time start --</option>
+			<option value="09:00">From 09:00 to 11:00</option>
+			<option value="12:00">From 12:00 to 14:00</option>
+			<option value="15:00">From 15:00 to 17:00</option>
+			<option value="18:00">From 18:00 to 20:00</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td><label>Choose Seat:</label></td>
+			<td><input type="number" min="1" max="50" step="1" required title="from 1 - 50" th:field="*{movieSeat}"/></td>
+		</tr>
+		<tr>
+			<td></td><td><input type="submit" value="Book"/></td>
+		</tr>
+		<tr><td></td><td>Come back to Main Page <a th:href="@{/}">here</a></td></tr>
+	</table>
+	</form>
+</div>
+</body>
+</html>

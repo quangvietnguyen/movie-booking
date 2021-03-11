@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>Order movie page</title>
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<h1>Admin's Page</h1>
+Go to the <a th:href="@{/}">Main page</a>
+
+<div sec:authorize="isAuthenticated()">
+	Welcome <span sec:authentication="name"> !</span>
+	<br>
+		Roles: <span sec:authentication="principal.authorities"></span>
+	<br>
+	<br>
+	<div>
+		<form th:action="@{/logout}" method="get">
+			<input type="submit" value="logout"/>
+		</form>
+	</div>
+</div>
+<br>
+<h2>Delete a row</h2>
+<form th:action="@{/delete}" method="get">
+<table>
+<tr>
+<td>Enter the orderId to delete:</td><td><input type="number" name="orderId"/></td>
+<td></td><td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+</form>
+<h2>Add a row into order list</h2>
+<form th:action="@{/add}" method="get">
+<table>
+<tr>
+<td>Movie name:</td><td><input type="text" name="name"></td>
+</tr>
+<tr>
+<td>Watching date:</td><td><input type="date" name="date"></td>
+</tr>
+<tr>
+<td>Watching time:</td><td><input type="time" name="time"></td>
+</tr>
+<tr>
+<td>Seat:</td><td><input type="number" min="1" max="50" name="seat"></td>
+</tr>
+<tr>
+<td></td><td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+</form>
+<h2>View the Order Table:</h2>
+<form th:action=@{/view} method="get">
+<table>
+<tr>
+<td></td><td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+</form>
+<div>
+<h3><a th:href="@{/book}">Book a movie</a></h3>
+<h3>Come back to Main Page <a th:href="@{/}">here</a></h3>
+</div>
+</body>
+</html>
